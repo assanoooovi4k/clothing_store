@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Spring Security Example </title>
+
+    <style>
+        span{
+            color: red;
+        }
+
+    </style>
+</head>
+
+<body>
+Add new user
+{{#message}}
+    {{message}}
+{{/message}}
+<form action="/registration" method="post" id="registration-form">
+    <div><label> Username: <input type="text" id= "username" name="username"/> </label></div>
+    <span id="error-username-span"></span>
+    <div><label> Password: <input type="password" id="password" name="password"/> </label></div>
+    <span id="error-password-span"></span>
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+    <div><button type="button" onclick = 'validate()' value="Sign In">Submit</button></div>
+</form>
+
+<script>
+    function checkLengthFromMinToMax(string, min, max)
+    {
+        return string.length >= min && string.length <= max;
+    }
+
+    function validate(){
+        if (checkUsername() && checkPassword()){
+            console.log("submit")
+            document.getElementById('registration-form').submit();
+        }else{
+            console.log("no submit")
+        }
+    }
+
+    function checkValidUsername(username)
+    {
+        return /^[A-Za-z0-9_]+$/.test(username);
+
+    }
+
+    function checkPassword()
+    {
+        let password = document.getElementById('password').value;
+        if (!checkLengthFromMinToMax(password, 3, 20)){
+            document.getElementById('error-password-span').innerHTML = "Password should be from 3 to 20 symbols!";
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+
+    function checkUsername()
+    {
+        let username = document.getElementById('username').value;
+        if (!checkLengthFromMinToMax(username, 3, 20))
+        {
+            document.getElementById('error-username-span').innerHTML = "Username should be from 3 to 20 symbols!";
+            return false;
+        }
+        else if (!checkValidUsername(username))
+        {
+            document.getElementById('error-username-span').innerHTML = "Username should contain only latin characters, numbers and underscore!";
+            return false;
+        }else{
+            return true;
+        }
+    }
+</script>
+
+</body>
+</html>

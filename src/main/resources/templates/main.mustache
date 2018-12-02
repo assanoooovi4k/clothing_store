@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Main</title>
+
+    <style>
+        span{
+            color: red;
+        }
+
+    </style>
+</head>
+<body>
+<div>
+    <form action="/logout" method="post">
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        <input type="submit" value="Sign Out"/>
+    </form>
+</div>
+<div>
+    <form method="post" id="main-form">
+        <span id="error-name-of-item-span"></span><br>
+        <div><label><input type="text" id="name-of-item" name = "name" placeholder="Input name" /> </label></div><br>
+        <span id="error-price-span"></span><br>
+        <div><label><input type="number" id="price" name = "price" placeholder="Input price"> </label></div><br>
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+        <button type="button" onclick = 'validate()'>Add</button>
+    </form>
+</div>
+<div>List of items</div>
+<form method="post" action = "filter">
+    <input type="text" name="filter">
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+    <button type="submit">Find</button>
+</form>
+{{#items}}
+    <div>
+        <b>{{id}}</b>
+        <span>{{name}}</span>
+        <i>{{price}}</i>
+    </div>
+{{/items}}
+
+<script>
+    function checkLengthFromMinToMax(string, min, max)
+    {
+        return string.length >= min && string.length <= max;
+    }
+
+    function validate(){
+        if (checkNameOfItem() && checkPrice()){
+            document.getElementById('main-form').submit();
+        }else{
+            alert("check data")
+        }
+
+    }
+
+    function checkNameOfItem(){
+        let item = document.getElementById('name-of-item').value;
+
+        if (!checkLengthFromMinToMax(item, 5, 255)){
+            document.getElementById('error-name-of-item-span').innerText = "Name of item should be from 5 to 255 symbols!";
+            console.log('bad name len');
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+
+    function checkPrice(){
+        let price = Number(document.getElementById('price').value);
+
+        if (price > 0 && price <= 20000){
+            return true;
+        }else{
+            document.getElementById('error-price-span').innerText = "Price should be more than 0 and less than 20000!";
+            console.log('bad price');
+            return false;
+        }
+    }
+</script>
+
+</body>
+</html>
