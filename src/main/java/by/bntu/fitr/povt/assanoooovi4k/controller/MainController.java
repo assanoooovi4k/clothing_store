@@ -1,6 +1,6 @@
 package by.bntu.fitr.povt.assanoooovi4k.controller;
 
-import by.bntu.fitr.povt.assanoooovi4k.domain.Item;
+import by.bntu.fitr.povt.assanoooovi4k.model.entity.Item;
 import by.bntu.fitr.povt.assanoooovi4k.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,6 +42,7 @@ public class MainController {
 
         return "main";
     }
+
 
     @PostMapping("filter")
     public  String filter(@RequestParam String filter,

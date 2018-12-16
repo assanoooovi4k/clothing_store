@@ -28,7 +28,15 @@ Add new user
 <script>
     function checkLengthFromMinToMax(string, min, max)
     {
-        return string.length >= min && string.length <= max;
+        let temp;
+        if(string.length >= min && string.length <= max) {
+            temp = true;
+        }
+        else {
+            temp = false;
+        }
+
+        return temp;
     }
 
     function validate(){
