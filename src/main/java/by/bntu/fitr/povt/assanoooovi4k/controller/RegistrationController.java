@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.Map;
 
 @Controller
-public class RegistrationController {
+public class  RegistrationController {
     @Autowired
     private UserRepository userRepository;
 
