@@ -9,19 +9,17 @@ import java.io.IOException;
 
 public class FileUtil {
     public static String saveFile(MultipartFile file) throws Exception {
-        String filePath = "src/main/webapp/resources/pics/";
+        String filePath = "src/main/java/resources/static/img/";
         File javaFile = new File(filePath + file.getOriginalFilename());
-        try {
-            byte[] bytes = file.getBytes();
-            javaFile = new File(javaFile.getAbsolutePath());
-            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(javaFile));
-            stream.write(bytes);
-            stream.flush();
-            stream.close();
-            return "/resources/pics/" + file.getOriginalFilename();
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new Exception("Exception");
-        }
+        byte[] bytes = file.getBytes();
+        javaFile = new File(javaFile.getAbsolutePath());
+        BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(javaFile));
+        stream.write(bytes);
+        stream.flush();
+        stream.close();
+        return "/img/" + file.getOriginalFilename();
     }
+
+
+
 }

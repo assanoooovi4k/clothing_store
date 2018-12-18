@@ -19,22 +19,28 @@ import java.util.Optional;
 @Controller
 @RequestMapping(value = "/admin")
 public class AdminController {
+
     @Autowired
     private ItemRepository itemRepository;
 
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping(value = "/createArticle")
-    public ModelAndView createItemGet() {
-        return new ModelAndView("createItem", "item", new Item());
+    @GetMapping(value = "/addItem")
+    public String getAddItemPage(){
+        return "adminAddItem";
     }
 
-    @PostMapping(value = "/createArticle")
-    @ResponseBody
-    public String createItemPost(Item item) {
-        itemRepository.save(item);
-        return "<i>success</i>";
+    @PostMapping(value = "/saveItem")
+    public String saveItem(Item item, MultipartFile file){
+        try {
+            FileUtil.saveFile(file);
+            Item save = itemRepository.save(item);
+            return "redirect:/product/" + save.getId();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/error?message=" + e.getMessage();
+        }
     }
 
     @GetMapping("/edit/{id}")

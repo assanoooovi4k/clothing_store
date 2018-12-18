@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,12 +25,6 @@ public class ItemController {
     public ModelAndView checkArticle(@PathVariable Long id){
         Optional<Item> itemById = itemRepository.findById(id);
         return new ModelAndView("singleItem", "item", itemById.get());
-    }
-
-    @GetMapping(value = "/items/{type}")
-    public ModelAndView searchByType(@PathVariable String type){
-        List<Item> itemsByType = itemRepository.findByType(type);
-        return new ModelAndView("index", "items",itemsByType);
     }
 
     @GetMapping(value = "/items/{name}")

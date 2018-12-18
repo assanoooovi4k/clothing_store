@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface ItemRepository extends CrudRepository<Item, Long> {
     List<Item> findByName(String name);
-    List<Item> findByType(String type);
+//    List<Item> findByType(String type);
     List<Item> findByPrice(Integer price);
+
+    List<Item> findAllByIdIsNotNullOrderById();
 }

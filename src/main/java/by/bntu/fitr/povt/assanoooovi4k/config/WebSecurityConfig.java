@@ -26,8 +26,6 @@ import javax.sql.DataSource;
 @EnableGlobalMethodSecurity(securedEnabled = true)
 
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-//    @Autowired
-//    private DataSource dataSource;
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
@@ -61,7 +59,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers( "/favicon.ico").permitAll();
     }
 
-
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -72,6 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new UserDetailsServiceImpl();
     }
 
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth)
             throws Exception {
@@ -81,28 +79,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN");
     }
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeRequests()
-//                    .antMatchers("/", "/registration").permitAll()
-//                    .anyRequest().authenticated()
-//                .and()
-//                    .formLogin()
-//                    .loginPage("/login")
-//                    .permitAll()
-//                .and()
-//                    .logout()
-//                    .permitAll();
-//    }
-//
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.jdbcAuthentication()
-//                .dataSource(dataSource)
-//                .passwordEncoder(NoOpPasswordEncoder.getInstance())
-//                .usersByUsernameQuery("select username, password, not is_blocked from user where username=?")
-//                .authoritiesByUsernameQuery("select u.username, ur.roles from user " +
-//                        "u inner join user_role ur on u.id = ur.user_id where u.username=?");
-//    }
+
 }
