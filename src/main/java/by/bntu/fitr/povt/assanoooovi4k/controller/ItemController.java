@@ -34,9 +34,9 @@ public class ItemController {
         return new ModelAndView("index", "items",itemsByName);
     }
 
-    @GetMapping(value = "/items/{price}")
-    public ModelAndView searchByPrice(@PathVariable Integer price){
-        List<Item> itemsByPrice = itemRepository.findByPrice(price);
+    @GetMapping(value = "/items/{price1}/{price2}")
+    public ModelAndView searchByPrice(@PathVariable Integer price1, Integer price2){
+        List<Item> itemsByPrice = itemRepository.findByPriceBetween(price1, price2);
         return new ModelAndView("index", "items",itemsByPrice);
     }
 

@@ -22,11 +22,21 @@ CREATE TABLE bought_item(
   user_id BIGINT NOT NULL,
   item_id BIGINT NOT NULL,
   status NVARCHAR(100),
-  card_number INT NOT NULL,
-  address NVARCHAR(100),
+  card_number NVARCHAR(16) NOT NULL,
+  address NVARCHAR(100) NOT NULL,
   FOREIGN KEY (user_id) REFERENCES user(id),
   FOREIGN KEY (item_id) REFERENCES item(id)
 );
 
-INSERT INTO user(is_blocked, password, username, role) VALUES (false, '$2a$10$rNv55rQku/k5w/I4/Ml0SuCS5kFH6RAJgVjB2mv.3SmgkRpqOXM8O','admin','ROLE_ADMIN');
-INSERT INTO item(category, description, name, path_to_file, price) VALUES ('phone','iphone X','Cell phone','/img/iphone.jpg',999);
+
+
+INSERT INTO clothing_store.bought_item (id, user_id, item_id, status, card_number, address) VALUES (1, 26, 11, 'delivered', '2322333344445555', 'Minsk,str. Nevazno, 33/11');
+INSERT INTO clothing_store.bought_item (id, user_id, item_id, status, card_number, address) VALUES (2, 26, 17, 'rejected', '123', 'ne znau');
+INSERT INTO clothing_store.hibernate_sequence (next_val) VALUES (27);
+INSERT INTO clothing_store.hibernate_sequence (next_val) VALUES (27);
+INSERT INTO clothing_store.hibernate_sequence (next_val) VALUES (27);
+INSERT INTO clothing_store.item (id, category, description, name, path_to_file, price) VALUES (11, 'Jackets', 'Warm, autumn jacket for men. Size: M', 'YOUTH MOUNTAIN GTX JACKET', '/img/TNFJacket.png', 230);
+INSERT INTO clothing_store.item (id, category, description, name, path_to_file, price) VALUES (17, 'Jeans', 'Beautiful, rare EVISU jeans for men. Size M.', 'EVISU JEANS', '/img/EVISUPants.png', 150);
+INSERT INTO clothing_store.item (id, category, description, name, path_to_file, price) VALUES (23, 'Boots', 'Warm, perfect boots for winter. Size: 44', 'THE NORTH FACE BOOTS', '/img/TNFBoots.png', 210);
+INSERT INTO clothing_store.user (id, is_blocked, password, username, role) VALUES (1, false, '$2a$10$rNv55rQku/k5w/I4/Ml0SuCS5kFH6RAJgVjB2mv.3SmgkRpqOXM8O', 'admin', 'ROLE_ADMIN');
+INSERT INTO clothing_store.user (id, is_blocked, password, username, role) VALUES (26, false, '$2a$10$XPupoqZ.4qQRazOjxG82mev8i798P1f4P2rLr1GuC60cGXEbHmnku', 'kirill', 'ROLE_USER');

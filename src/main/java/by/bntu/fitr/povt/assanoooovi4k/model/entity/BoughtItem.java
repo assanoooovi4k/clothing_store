@@ -18,15 +18,15 @@ public class BoughtItem {
 
     private String status;
 
-    private Integer cardNumber;
+    private String cardNumber;
 
     private String address;
 
-    public Integer getCardNumber() {
+    public String getCardNumber() {
         return cardNumber;
     }
 
-    public void setCardNumber(Integer cardNumber) {
+    public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
 

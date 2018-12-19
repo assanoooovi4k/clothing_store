@@ -4,7 +4,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Remove item</title>
+    <title>Remove and change items</title>
     <link rel="stylesheet" href="/css/bootstrap.css">
     <link rel="stylesheet" href="/css/bootstrap-grid.css">
     <link rel="stylesheet" href="/css/bootstrap-reboot.css">
@@ -62,7 +62,7 @@
                         </form>
                     </td>
                     <td>
-                        <a th:href="'/product/' + ${item.id}" class="btn btn-primary">Change</a>
+                        <a th:href="'editItem/' + ${item.id}" class="btn btn-primary">Change</a>
                     </td>
 
                 </tr>

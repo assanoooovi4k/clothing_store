@@ -82,28 +82,22 @@ public class AdminController {
 //        }
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/editItem/{id}")
     public ModelAndView editItem(@PathVariable String id){
         Optional<Item> itemById = itemRepository.findById(Long.parseLong(id));
-        return new ModelAndView("editItem", "item", itemById.get());
+        return new ModelAndView("adminEditItem", "item", itemById.get());
     }
 
     @PostMapping(value = "/edit/{id}")
-    public String updateItemPost(@PathVariable String id, Item item, MultipartFile file){
-        if (item!=null){
-            try {
-                if (!file.getOriginalFilename().equals("")){
-                    item.setPathToFile(FileUtil.saveFile(file));
-                }else{
-                    item.setPathToFile(itemRepository.findById(Long.parseLong(id)).get().getPathToFile());
-                }
-                itemRepository.save(item);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        }
-        return "redirect:/admin";
+    public String updateItem(@PathVariable Long id, Item item, MultipartFile file){
+        Optional<Item> newItem = itemRepository.findById(id);
+        newItem.get().setName(item.getName());
+        newItem.get().setCategory(item.getCategory());
+        newItem.get().setDescription(item.getDescription());
+        newItem.get().setPrice(item.getPrice());
+        newItem.get().setPathToFile("/img/" + file.getOriginalFilename());
+        itemRepository.save(newItem.get());
+        return "redirect:/product/" + item.getId();
     }
 
     @GetMapping(value = "")
@@ -126,4 +120,5 @@ public class AdminController {
         itemRepository.deleteById(id);
         return "redirect:/admin/removeAndChangeItem";
     }
+
 }

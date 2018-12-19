@@ -955,13 +955,15 @@
     </column>
     <column id="239" parent="231" name="card_number">
       <Position>5</Position>
-      <DataType>int(11)|0s</DataType>
+      <DataType>varchar(16)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
+      <Collation>utf8_general_ci</Collation>
     </column>
     <column id="240" parent="231" name="address">
       <Position>6</Position>
       <DataType>varchar(100)|0s</DataType>
+      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
       <Collation>utf8_general_ci</Collation>
     </column>

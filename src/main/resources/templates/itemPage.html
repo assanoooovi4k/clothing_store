@@ -14,7 +14,19 @@
 </head>
 <body>
 
-<div th:include="~{index.html :: navbar}"></div>
+<div th:fragment="navbar">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <label class="navbar-brand" href="/">Clothing store</label>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
 
 <div class="container col-md-3">
     <div class="offset-md-1">
