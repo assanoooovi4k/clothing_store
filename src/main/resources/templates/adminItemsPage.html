@@ -1,0 +1,76 @@
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Remove and change items</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap-grid.css">
+    <link rel="stylesheet" href="/css/bootstrap-reboot.css">
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/bootstrap.bundle.js"></script>
+</head>
+<body>
+
+
+<div th:fragment="adminNav">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <label class="navbar-brand" href="/">Clothing store</label>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<div class="container">
+    <h1 align="center">Remove and change items</h1>
+    <div>
+        <div th:if="${items.isEmpty()}" class="text-center">
+            <h1>No one yet</h1>
+        </div>
+
+        <div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Link</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Delete</th>
+                    <th scope="col">    Change</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${items}">
+                    <th scope="row" th:text="${item.id}"></th>
+                    <td>
+                        <a th:href="'/product/' + ${item.id}" class="btn btn-primary">Link</a>
+                    </td>
+                    <td th:text="${item.name}"></td>
+                    <td th:text="${item.price}"></td>
+                    <td th:text="${item.category}"></td>
+                    <td>
+                        <form name=remove th:action = "'remove/' + ${item.id}" method="post">
+                            <button class="btn btn-primary" type="submit">Delete</button>
+                        </form>
+                    </td>
+                    <td>
+                        <a th:href="'editItem/' + ${item.id}" class="btn btn-primary">Change</a>
+                    </td>
+
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

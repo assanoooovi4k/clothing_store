@@ -1,0 +1,83 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/security/tags">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap-grid.css">
+    <link rel="stylesheet" href="/css/bootstrap-reboot.css">
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/bootstrap.bundle.js"></script>
+
+</head>
+<body>
+
+<div th:fragment="navbar">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Shop</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a sec:authorize="!hasRole('USER')" class="nav-link" href="/ordered">Orders</a>
+                </li>
+                <li class="nav-item">
+                    <a sec:authorize="!hasRole('USER')" class="nav-link" href="/logout">Logout</a>
+                </li>
+                <li class="nav-item">
+                    <a sec:authorize="!hasRole('ADMIN')" class="nav-link" href="/logout">Logout</a>
+                </li>
+                <!--<li class="nav-item">-->
+                    <!--<a sec:authorize="!hasRole('ADMIN')" class="nav-link" href="/admin/addItem">AddItem</a>-->
+                <!--</li>-->
+                <li class="nav-item active">
+                    <a sec:authorize="!isAuthenticated()" class="nav-link" href="/auth">Auth</a>
+                </li>
+                <li class="nav-item">
+                    <a sec:authorize="!isAuthenticated()" class="nav-link" href="/registration">Registration</a>
+                </li>
+                <!--<li class="nav-item">-->
+                    <!---->
+                <!--</li>-->
+                <!--<li class="nav-item">-->
+                    <!--<a class="nav-link" href="">Disabled</a>-->
+                <!--</li>-->
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+</div>
+
+<div class="container">
+    <div>
+        <div th:if="${items.isEmpty()}" class="text-center">
+            <h1>No one yet</h1>
+        </div>
+
+        <div th:each="item : ${items}">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" th:src="${item.pathToFile}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${item.name}"></h5>
+                    <p class="card-text" th:text="${item.price}"></p>
+                    <a th:href="'/product/' + ${item.id}" class="btn btn-primary">Open</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

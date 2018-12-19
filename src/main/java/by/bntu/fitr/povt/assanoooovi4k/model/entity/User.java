@@ -12,6 +12,7 @@ public class User {
     private String username;
     private String password;
     private boolean isBlocked;
+    private String role;
 
 
 
@@ -22,6 +23,13 @@ public class User {
         this.username = username;
         this.password = password;
         this.isBlocked = isBlocked;
+    }
+
+    public User(String username, String password, boolean isBlocked, String role) {
+        this.username = username;
+        this.password = password;
+        this.isBlocked = isBlocked;
+        this.role = role;
     }
 
     public Long getId() {
@@ -54,6 +62,22 @@ public class User {
 
     public void setStatus(boolean blocked) {
         this.isBlocked = blocked;
+    }
+
+    public boolean isBlocked() {
+        return isBlocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        isBlocked = blocked;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override
