@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
@@ -37,5 +38,11 @@ public class ItemController {
     public ModelAndView searchByPrice(@PathVariable Integer price){
         List<Item> itemsByPrice = itemRepository.findByPrice(price);
         return new ModelAndView("index", "items",itemsByPrice);
+    }
+
+    @GetMapping(value = "/search")
+    public ModelAndView search(@RequestParam(name = "searchString") String searchString) {
+        List<Item> items = itemRepository.findByNameLike(String.format("%%%s%%", searchString));
+        return new ModelAndView("index", "items", items);
     }
 }

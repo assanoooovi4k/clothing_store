@@ -1,12 +1,15 @@
 package by.bntu.fitr.povt.assanoooovi4k.controller;
 
+import by.bntu.fitr.povt.assanoooovi4k.model.entity.BoughtItem;
 import by.bntu.fitr.povt.assanoooovi4k.model.entity.Item;
 import by.bntu.fitr.povt.assanoooovi4k.model.entity.User;
+import by.bntu.fitr.povt.assanoooovi4k.repository.BoughtRepository;
 import by.bntu.fitr.povt.assanoooovi4k.repository.ItemRepository;
 import by.bntu.fitr.povt.assanoooovi4k.repository.UserRepository;
 import by.bntu.fitr.povt.assanoooovi4k.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,6 +29,39 @@ public class AdminController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private BoughtRepository boughtRepository;
+
+
+    @PostMapping(value = "changeStatusOfItem/{id}/{status}")
+    public String changeStatus(@PathVariable Long id, @PathVariable String status){
+        Optional<BoughtItem> boughtItem = boughtRepository.findById(id);
+        boughtItem.get().setStatus(status);
+        boughtRepository.save(boughtItem.get());
+        return "redirect:/admin/usersOrders";
+    }
+
+    @GetMapping("/removeAndChangeItem")
+    public ModelAndView getRemoveAndChangeItemPage(){
+        List<Item> items = itemRepository.findAllByIdIsNotNullOrderById();
+        System.out.println(items);
+        return new ModelAndView(
+                "adminItemsPage",
+                "items",
+                items
+        );
+    }
+    @GetMapping("/usersOrders")
+    public ModelAndView getUserOrders(){
+        List<BoughtItem> items = boughtRepository.findAll();
+        System.out.println(items);
+        return new ModelAndView(
+                "adminUsersOrders",
+                "items",
+                items
+        );
+    }
+
     @GetMapping(value = "/addItem")
     public String getAddItemPage(){
         return "adminAddItem";
@@ -33,14 +69,17 @@ public class AdminController {
 
     @PostMapping(value = "/saveItem")
     public String saveItem(Item item, MultipartFile file){
-        try {
-            FileUtil.saveFile(file);
-            Item save = itemRepository.save(item);
-            return "redirect:/product/" + save.getId();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "redirect:/error?message=" + e.getMessage();
-        }
+        item.setPathToFile("/img/" + file.getOriginalFilename());
+        itemRepository.save(item);
+        return "redirect:/product/" + item.getId();
+//        try {
+//            FileUtil.saveFile(file);
+//            Item save = itemRepository.save(item);
+//            return "redirect:/product/" + save.getId();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return "redirect:/error?message=" + e.getMessage();
+//        }
     }
 
     @GetMapping("/edit/{id}")
@@ -84,7 +123,7 @@ public class AdminController {
 
     @PostMapping(value = "/remove/{id}")
     public String removeItem(@PathVariable Long id){
-        userRepository.deleteById(id);
-        return "redirect:/admin";
+        itemRepository.deleteById(id);
+        return "redirect:/admin/removeAndChangeItem";
     }
 }

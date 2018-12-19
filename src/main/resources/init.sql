@@ -22,9 +22,11 @@ CREATE TABLE bought_item(
   user_id BIGINT NOT NULL,
   item_id BIGINT NOT NULL,
   status NVARCHAR(100),
+  card_number INT NOT NULL,
+  address NVARCHAR(100),
   FOREIGN KEY (user_id) REFERENCES user(id),
   FOREIGN KEY (item_id) REFERENCES item(id)
 );
 
-INSERT INTO user(is_blocked, password, username, role) VALUES (false, '$2a$10$rNv55rQku/k5w/I4/Ml0SuCS5kFH6RAJgVjB2mv.3SmgkRpqOXM8O','admin','ROLE_ADMIN')
+INSERT INTO user(is_blocked, password, username, role) VALUES (false, '$2a$10$rNv55rQku/k5w/I4/Ml0SuCS5kFH6RAJgVjB2mv.3SmgkRpqOXM8O','admin','ROLE_ADMIN');
 INSERT INTO item(category, description, name, path_to_file, price) VALUES ('phone','iphone X','Cell phone','/img/iphone.jpg',999);

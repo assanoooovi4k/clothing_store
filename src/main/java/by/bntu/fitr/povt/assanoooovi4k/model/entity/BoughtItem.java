@@ -18,6 +18,26 @@ public class BoughtItem {
 
     private String status;
 
+    private Integer cardNumber;
+
+    private String address;
+
+    public Integer getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(Integer cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public BoughtItem() {
     }
 

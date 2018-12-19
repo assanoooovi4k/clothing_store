@@ -11,4 +11,5 @@ public interface ItemRepository extends CrudRepository<Item, Long> {
     List<Item> findByPrice(Integer price);
 
     List<Item> findAllByIdIsNotNullOrderById();
+    List<Item> findByNameLike(String name);
 }

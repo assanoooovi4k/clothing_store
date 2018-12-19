@@ -1,0 +1,81 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Orders</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap-grid.css">
+    <link rel="stylesheet" href="/css/bootstrap-reboot.css">
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/bootstrap.bundle.js"></script>
+</head>
+<body>
+
+<div th:fragment="adminNav">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <label class="navbar-brand" href="/">Clothing store</label>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div class="container">
+    <h1 align="center">Users orders</h1>
+    <div th:if="${!items.isEmpty()}">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Link to the item</th>
+                <th scope="col">User(id/username)</th>
+                <th scope="col">Status</th>
+                <th scope="col">Price</th>
+                <th scope="col">Address</th>
+                <th scope="col">Reject/Deliver</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${items}">
+                <td>
+                    <a th:href="'/product/' + ${item.id}" class="btn btn-primary">Link</a>
+                </td>
+                <td th:text="${item.user.id} + '/' + ${item.user.username} "></td>
+                <td th:text="${item.status}"></td>
+                <td th:text="${item.item.price}"></td>
+                <td th:text="${item.address}"></td>
+                <td>
+                    <div th:switch="${item.status}">
+                        <span th:case="'payed'">
+                        <form style="display: inline-block" name=remove th:action = "'changeStatusOfItem/' + ${item.id} + '/rejected'" method="post">
+                            <button class="btn btn-primary" type="submit">Reject</button>
+                        </form>
+                            <form style="display: inline-block" name=remove th:action = "'changeStatusOfItem/' + ${item.id} + '/delivered'" method="post">
+                            <button class="btn btn-primary" type="submit">Deliver</button>
+                        </form>
+                        </span>
+                        <span th:case="'rejected'">
+                            <label>Order was rejected</label>
+                        </span>
+                        <span th:case="'delivered'">
+                            <label>Order was delivered</label>
+                        </span>
+                    </div>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>

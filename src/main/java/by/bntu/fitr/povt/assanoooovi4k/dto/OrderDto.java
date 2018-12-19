@@ -2,35 +2,25 @@ package by.bntu.fitr.povt.assanoooovi4k.dto;
 
 public class OrderDto {
 
-    private String cardNumber;
-    private String city;
+    private Integer cardNumber;
     private String address;
     private Long itemId;
 
     public OrderDto() {
     }
 
-    public OrderDto(String cardNumber, String city, String address, Long itemId) {
+    public OrderDto(Integer cardNumber, String address, Long itemId) {
         this.cardNumber = cardNumber;
-        this.city = city;
         this.address = address;
         this.itemId = itemId;
     }
 
-    public String getCardNumber() {
+    public Integer getCardNumber() {
         return cardNumber;
     }
 
-    public void setCardNumber(String cardNumber) {
+    public void setCardNumber(Integer cardNumber) {
         this.cardNumber = cardNumber;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
     }
 
     public String getAddress() {

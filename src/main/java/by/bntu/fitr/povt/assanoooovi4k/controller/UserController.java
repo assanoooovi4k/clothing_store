@@ -47,7 +47,7 @@ public class UserController {
         } else {
             return new ModelAndView("redirect:/");
         }
-        boughtRepository.saveItem(byUsername.getId(),item.getId(),"payed");
+        boughtRepository.saveItem(byUsername.getId(),item.getId(),"payed", orderDto.getCardNumber(), orderDto.getAddress());
         return new ModelAndView("redirect:/ordered");
     }
 

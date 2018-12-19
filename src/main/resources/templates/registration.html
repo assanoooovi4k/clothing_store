@@ -5,6 +5,11 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Registration</title>
+    <style>
+        span{
+            color: red;
+        }
+    </style>
     <link rel="stylesheet" href="/css/bootstrap.css">
     <link rel="stylesheet" href="/css/bootstrap-grid.css">
     <link rel="stylesheet" href="/css/bootstrap-reboot.css">
@@ -17,23 +22,75 @@
 <div th:include="~{index.html :: navbar}"></div>
 
 <div class="container">
+    <h1 align="center">Registration</h1>
     <div>
-        <form action="/registration" method="post">
+        <form action="/registration" method="post" id="registration-form">
             <div class="form-group">
                 <label for="username">Username</label>
+                <span style="display: grid" id="error-username-span"></span>
                 <input type="text" class="form-control" id="username" name="username"
                        placeholder="Enter username">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
+                <span style="display: grid" id="error-password-span"></span>
                 <input type="password" class="form-control" name="password" id="password" placeholder="Password">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" onclick="validate()" class="btn btn-primary">Submit</button>
         </form>
 
     </div>
 </div>
-
+<script>
+    function checkLengthFromMinToMax(string, min, max)
+    {
+        let temp;
+        if(string.length >= min && string.length <= max) {
+            temp = true;
+        }
+        else {
+            temp = false;
+        }
+        return temp;
+    }
+    function validate(){
+        if (checkUsername() && checkPassword()){
+            console.log("submit")
+            document.getElementById('registration-form').submit();
+        }else{
+            console.log("no submit")
+        }
+    }
+    function checkValidUsername(username)
+    {
+        return /^[A-Za-z0-9_]+$/.test(username);
+    }
+    function checkPassword()
+    {
+        let password = document.getElementById('password').value;
+        if (!checkLengthFromMinToMax(password, 3, 20)){
+            document.getElementById('error-password-span').innerHTML = "Password should be from 3 to 20 symbols!";
+            return false;
+        }else{
+            return true;
+        }
+    }
+    function checkUsername()
+    {
+        let username = document.getElementById('username').value;
+        if (!checkLengthFromMinToMax(username, 3, 20))
+        {
+            document.getElementById('error-username-span').innerHTML = "Username should be from 3 to 20 symbols!";
+            return false;
+        }
+        else if (!checkValidUsername(username))
+        {
+            document.getElementById('error-username-span').innerHTML = "Username should contain only latin characters, numbers and underscore!";
+            return false;
+        }else{
+            return true;
+        }
+    }
+</script>
 </body>
 </html>

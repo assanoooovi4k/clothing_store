@@ -22,8 +22,9 @@
             <div class="card" style="width: 18rem;">
                 <img class="card-img-top" th:src="${item.pathToFile}" alt="Card image cap">
                 <div class="card-body">
-                    <h5 class="card-title" th:text="${item.name}"></h5>
-                    <p class="card-text" th:text="${item.price}"></p>
+                    <h4 class="card-title" th:text="${item.name}"></h4>
+                    <h5 class="card-title" th:text="${item.description}"></h5>
+                    <p class="card-text" th:text="${item.price} + '$'"></p>
                     <div sec:authorize="hasRole('USER')">
                         <a th:href="'/order?item=' + ${item.id}" class="btn btn-primary">Order</a>
                     </div>

@@ -21,7 +21,7 @@
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title" th:text="${item.name}" style="overflow: hidden"></h5>
-                    <p class="card-text" th:text="${item.price}"></p>
+                    <p class="card-text" th:text="${item.price} +'$'"></p>
                 </div>
             </div>
         </div>
@@ -36,10 +36,6 @@
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Card number</label>
                 <input type="number" class="form-control" minlength="10" maxlength="11" id="cardNumber" name="cardNumber" placeholder="card number">
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2 col-form-label">City</label>
-                <input type="text" class="form-control" id="city" name="city" placeholder="city">
             </div>
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Address</label>
